@@ -82,6 +82,8 @@
 
 			var camera, scene, renderer;
 			var meshTris, meshQuads, meshLines, meshMixed;
+			var cubeSize = 1.0;
+			var stopScaling = false;
 
 			init();
 			animate();
@@ -103,7 +105,7 @@
 
 				// wireframe using gl.LINES
 
-				var materialLines = new THREE.MeshBasicMaterial( { wireframe: true } );
+				var materialLines = new THREE.MeshBasicMaterial( { wireframe: true, color: 0xff0000} );
 
 				meshLines = new THREE.Mesh( geometryLines, materialLines );
 				meshLines.position.x = 0;
@@ -203,6 +205,25 @@
 
 				meshLines.rotation.x += 0.005;
 				meshLines.rotation.y += 0.01;
+
+				// Scale the red cube and animate it 
+				if (cubeSize > 2.0 || cubeSize < 1.0) {
+
+					stopScaling = !stopScaling;
+
+				}
+
+				if(stopScaling) {
+
+					cubeSize -= 0.02
+
+				} else {
+
+					cubeSize += 0.02
+					
+				}
+				meshLines.scale.set(cubeSize, cubeSize, cubeSize);
+				//----------
 
 				meshQuads.rotation.x += 0.005;
 				meshQuads.rotation.y += 0.01;
